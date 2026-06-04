@@ -1,0 +1,20 @@
+# Radeon PRO W7900 — RDNA 3, 48GB GDDR6, 864 GB/s
+device: 0
+model:
+  name: meta-llama/Llama-3-8B
+  precision: fp16
+
+serving:
+  backend: vllm
+  max_batch_size: 8
+  max_seq_len: 2048
+
+benchmark:
+  batch_sizes: [1, 2, 4, 8]
+  sequence_lengths: [512, 1024, 2048]
+  iterations: 50
+  warmup: 5
+
+output:
+  format: json
+  path: results/w7900/
