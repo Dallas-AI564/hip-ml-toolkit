@@ -1,0 +1,26 @@
+# MI300X — CDNA 3, 192GB HBM3, 5.3 TB/s bandwidth
+device: 0
+model:
+  name: meta-llama/Llama-3-70B
+  precision: fp8
+  quantization:
+    method: fp8
+    calibration: c4
+    num_samples: 512
+
+serving:
+  backend: vllm
+  max_batch_size: 64
+  max_seq_len: 4096
+  tensor_parallel: 1
+  gpu_memory_utilization: 0.92
+
+benchmark:
+  batch_sizes: [1, 4, 8, 16, 32, 64]
+  sequence_lengths: [512, 1024, 2048, 4096]
+  iterations: 100
+  warmup: 10
+
+output:
+  format: json
+  path: results/mi300x/
