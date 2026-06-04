@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "hip-ml-toolkit"
+version = "0.1.0"
+description = "ML Inference Optimization Toolkit for AMD GPUs"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Dallas-AI564", email = "dallas-ai564@users.noreply.github.com"},
+]
+keywords = ["amd", "rocm", "hip", "inference", "llm", "quantization", "mi300x", "mi250x"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Benchmark",
+]
+dependencies = [
+    "torch>=2.1",
+    "onnxruntime-gpu>=1.17",
+    "transformers>=4.38",
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+    "tqdm>=4.66",
+    "psutil>=5.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+]
+serve = [
+    "vllm>=0.4",
+    "uvicorn>=0.27",
+    "fastapi>=0.109",
+]
+
+[project.scripts]
+hipml = "hipml.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
