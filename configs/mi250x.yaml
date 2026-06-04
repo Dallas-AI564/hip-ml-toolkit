@@ -1,0 +1,25 @@
+# MI250X — CDNA 2, 128GB HBM2e, 3.2 TB/s bandwidth
+device: 0
+model:
+  name: meta-llama/Llama-3-70B
+  precision: fp16
+  quantization:
+    method: gptq
+    bits: 4
+    group_size: 128
+
+serving:
+  backend: vllm
+  max_batch_size: 32
+  max_seq_len: 2048
+  tensor_parallel: 2
+
+benchmark:
+  batch_sizes: [1, 4, 8, 16, 32]
+  sequence_lengths: [512, 1024, 2048]
+  iterations: 50
+  warmup: 5
+
+output:
+  format: json
+  path: results/mi250x/
